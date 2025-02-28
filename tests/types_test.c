@@ -12,7 +12,7 @@ LICENSE
 
 #include "test.h" /* Simple Testing framework */
 
-void types_test_sizes()
+void types_test_sizes(void)
 {
   assert(sizeof(u8) == 1);
   assert(sizeof(u16) == 2);
@@ -29,7 +29,7 @@ void types_test_sizes()
   assert(sizeof(b32) == 4);
 }
 
-void types_test_constants()
+void types_test_constants(void)
 {
   /* Unsigned */
   assert(U8_MAX == 255);
@@ -44,13 +44,13 @@ void types_test_constants()
   assert(I32_MAX == 2147483647);
 }
 
-void types_test_booleans()
+void types_test_booleans(void)
 {
   assert(true == 1);
   assert(false == 0);
 }
 
-void types_test_bit_macros()
+void types_test_bit_macros(void)
 {
   u8 x = 0;
 
