@@ -29,21 +29,9 @@ LICENSE
 typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
-/* C89 unsigned long long type */
-typedef struct u64
-{
-  unsigned int high;
-  unsigned int low;
-} u64;
 typedef signed char i8;
 typedef signed short i16;
 typedef signed int i32;
-/* C89 signed long long type */
-typedef struct i64
-{
-  int high;
-  unsigned int low;
-} i64;
 typedef float f32;
 typedef double f64;
 typedef u8 b8;
@@ -79,172 +67,154 @@ typedef int b32;
 TYPES_STATIC_ASSERT(sizeof(u8) == 1, u8_size_must_be_1);
 TYPES_STATIC_ASSERT(sizeof(u16) == 2, u16_size_must_be_2);
 TYPES_STATIC_ASSERT(sizeof(u32) == 4, u32_size_must_be_4);
-TYPES_STATIC_ASSERT(sizeof(u64) == 8, u64_size_must_be_8);
 TYPES_STATIC_ASSERT(sizeof(i8) == 1, i8_size_must_be_1);
 TYPES_STATIC_ASSERT(sizeof(i16) == 2, i16_size_must_be_2);
 TYPES_STATIC_ASSERT(sizeof(i32) == 4, i32_size_must_be_4);
-TYPES_STATIC_ASSERT(sizeof(i64) == 8, i64_size_must_be_8);
 TYPES_STATIC_ASSERT(sizeof(f32) == 4, f32_size_must_be_4);
 TYPES_STATIC_ASSERT(sizeof(f64) == 8, f64_size_must_be_8);
 TYPES_STATIC_ASSERT(sizeof(b8) == 1, b8_size_must_be_1);
 TYPES_STATIC_ASSERT(sizeof(b32) == 4, b32_size_must_be_4);
 
-/* Addition of two u64 numbers */
+/* #############################################################################
+ * # 64-bit Integer Emulation for C89
+ * #############################################################################
+ */
+typedef struct u64
+{
+  u32 low;
+  u32 high;
+} u64;
+
+typedef struct i64
+{
+  i32 low;
+  i32 high;
+} i64;
+
+TYPES_STATIC_ASSERT(sizeof(u64) == 8, u64_size_must_be_8);
+TYPES_STATIC_ASSERT(sizeof(i64) == 8, i64_size_must_be_8);
+
+/* #############################################################################
+ * # 64-bit Integer Operations
+ * #############################################################################
+ */
 TYPES_INLINE u64 u64_add(u64 a, u64 b)
 {
   u64 result;
   result.low = a.low + b.low;
   result.high = a.high + b.high + (result.low < a.low);
-  return (result);
+  return result;
 }
 
-/* Subtraction of two u64 numbers */
 TYPES_INLINE u64 u64_sub(u64 a, u64 b)
 {
   u64 result;
   result.low = a.low - b.low;
   result.high = a.high - b.high - (a.low < b.low);
-  return (result);
+  return result;
 }
 
-/* Bitwise AND */
 TYPES_INLINE u64 u64_and(u64 a, u64 b)
 {
   u64 result;
-  result.high = a.high & b.high;
   result.low = a.low & b.low;
-  return (result);
+  result.high = a.high & b.high;
+  return result;
 }
 
-/* Bitwise OR */
 TYPES_INLINE u64 u64_or(u64 a, u64 b)
 {
   u64 result;
-  result.high = a.high | b.high;
   result.low = a.low | b.low;
-  return (result);
+  result.high = a.high | b.high;
+
+  return result;
 }
 
-/* Bitwise XOR */
 TYPES_INLINE u64 u64_xor(u64 a, u64 b)
 {
   u64 result;
-  result.high = a.high ^ b.high;
   result.low = a.low ^ b.low;
-  return (result);
+  result.high = a.high ^ b.high;
+  return result;
 }
 
-/* Left shift */
-TYPES_INLINE u64 u64_lshift(u64 a, int shift)
+TYPES_INLINE u64 u64_not(u64 a)
 {
-  u64 result = a;
-  if (shift >= 32)
-  {
-    result.high = result.low << (shift - 32);
-    result.low = 0;
-  }
-  else
-  {
-    result.high = (result.high << shift) | (result.low >> (32 - shift));
-    result.low <<= shift;
-  }
-  return (result);
+  u64 result;
+  result.low = ~a.low;
+  result.high = ~a.high;
+  return result;
 }
 
-/* Right shift */
-TYPES_INLINE u64 u64_rshift(u64 a, int shift)
+TYPES_INLINE u64 u64_nand(u64 a, u64 b)
 {
-  u64 result = a;
-  if (shift >= 32)
-  {
-    result.low = result.high >> (shift - 32);
-    result.high = 0;
-  }
-  else
-  {
-    result.low = (result.high << (32 - shift)) | (result.low >> shift);
-    result.high >>= shift;
-  }
-  return (result);
+  u64 result;
+  result.low = ~(a.low & b.low);
+  result.high = ~(a.high & b.high);
+
+  return result;
 }
 
-/* Addition of two i64 numbers */
 TYPES_INLINE i64 i64_add(i64 a, i64 b)
 {
   i64 result;
   result.low = a.low + b.low;
   result.high = a.high + b.high + (result.low < a.low);
-  return (result);
+  return result;
 }
 
-/* Subtraction of two i64 numbers */
 TYPES_INLINE i64 i64_sub(i64 a, i64 b)
 {
   i64 result;
   result.low = a.low - b.low;
   result.high = a.high - b.high - (a.low < b.low);
-  return (result);
+  return result;
 }
 
-/* Bitwise AND */
 TYPES_INLINE i64 i64_and(i64 a, i64 b)
 {
   i64 result;
-  result.high = a.high & b.high;
   result.low = a.low & b.low;
-  return (result);
+  result.high = a.high & b.high;
+
+  return result;
 }
 
-/* Bitwise OR */
 TYPES_INLINE i64 i64_or(i64 a, i64 b)
 {
   i64 result;
-  result.high = a.high | b.high;
   result.low = a.low | b.low;
-  return (result);
+  result.high = a.high | b.high;
+
+  return result;
 }
 
-/* Bitwise XOR */
 TYPES_INLINE i64 i64_xor(i64 a, i64 b)
 {
   i64 result;
-  result.high = a.high ^ b.high;
   result.low = a.low ^ b.low;
-  return (result);
+  result.high = a.high ^ b.high;
+
+  return result;
 }
 
-/* Left shift */
-TYPES_INLINE i64 i64_lshift(i64 a, int shift)
+TYPES_INLINE i64 i64_not(i64 a)
 {
-  i64 result = a;
-  if (shift >= 32)
-  {
-    result.high = (int)(result.low << (shift - 32));
-    result.low = 0;
-  }
-  else
-  {
-    result.high = (int)(result.high << shift) | (int)(result.low >> (32 - shift));
-    result.low <<= shift;
-  }
-  return (result);
+  i64 result;
+  result.low = ~a.low;
+  result.high = ~a.high;
+
+  return result;
 }
 
-/* Right shift */
-TYPES_INLINE i64 i64_rshift(i64 a, int shift)
+TYPES_INLINE i64 i64_nand(i64 a, i64 b)
 {
-  i64 result = a;
-  if (shift >= 32)
-  {
-    result.low = (unsigned int)(result.high >> (shift - 32));
-    result.high = result.high < 0 ? -1 : 0;
-  }
-  else
-  {
-    result.low = (unsigned int)(result.high << (32 - shift)) | (unsigned int)(result.low >> shift);
-    result.high >>= shift;
-  }
-  return (result);
+  i64 result;
+  result.low = ~(a.low & b.low);
+  result.high = ~(a.high & b.high);
+
+  return result;
 }
 
 #endif /* TYPES_H */
