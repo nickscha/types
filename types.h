@@ -107,7 +107,8 @@ TYPES_API TYPES_INLINE u64 u64_add(u64 a, u64 b)
   u64 result;
   result.low = a.low + b.low;
   result.high = a.high + b.high + (result.low < a.low);
-  return result;
+
+  return (result);
 }
 
 TYPES_API TYPES_INLINE u64 u64_sub(u64 a, u64 b)
@@ -115,7 +116,8 @@ TYPES_API TYPES_INLINE u64 u64_sub(u64 a, u64 b)
   u64 result;
   result.low = a.low - b.low;
   result.high = a.high - b.high - (a.low < b.low);
-  return result;
+
+  return (result);
 }
 
 TYPES_API TYPES_INLINE u64 u64_and(u64 a, u64 b)
@@ -123,7 +125,8 @@ TYPES_API TYPES_INLINE u64 u64_and(u64 a, u64 b)
   u64 result;
   result.low = a.low & b.low;
   result.high = a.high & b.high;
-  return result;
+
+  return (result);
 }
 
 TYPES_API TYPES_INLINE u64 u64_or(u64 a, u64 b)
@@ -132,7 +135,7 @@ TYPES_API TYPES_INLINE u64 u64_or(u64 a, u64 b)
   result.low = a.low | b.low;
   result.high = a.high | b.high;
 
-  return result;
+  return (result);
 }
 
 TYPES_API TYPES_INLINE u64 u64_xor(u64 a, u64 b)
@@ -140,7 +143,8 @@ TYPES_API TYPES_INLINE u64 u64_xor(u64 a, u64 b)
   u64 result;
   result.low = a.low ^ b.low;
   result.high = a.high ^ b.high;
-  return result;
+
+  return (result);
 }
 
 TYPES_API TYPES_INLINE u64 u64_not(u64 a)
@@ -148,7 +152,8 @@ TYPES_API TYPES_INLINE u64 u64_not(u64 a)
   u64 result;
   result.low = ~a.low;
   result.high = ~a.high;
-  return result;
+
+  return (result);
 }
 
 TYPES_API TYPES_INLINE u64 u64_nand(u64 a, u64 b)
@@ -157,7 +162,7 @@ TYPES_API TYPES_INLINE u64 u64_nand(u64 a, u64 b)
   result.low = ~(a.low & b.low);
   result.high = ~(a.high & b.high);
 
-  return result;
+  return (result);
 }
 
 TYPES_API TYPES_INLINE i64 i64_add(i64 a, i64 b)
@@ -165,7 +170,8 @@ TYPES_API TYPES_INLINE i64 i64_add(i64 a, i64 b)
   i64 result;
   result.low = a.low + b.low;
   result.high = a.high + b.high + (result.low < a.low);
-  return result;
+
+  return (result);
 }
 
 TYPES_API TYPES_INLINE i64 i64_sub(i64 a, i64 b)
@@ -173,7 +179,8 @@ TYPES_API TYPES_INLINE i64 i64_sub(i64 a, i64 b)
   i64 result;
   result.low = a.low - b.low;
   result.high = a.high - b.high - (a.low < b.low);
-  return result;
+
+  return (result);
 }
 
 TYPES_API TYPES_INLINE i64 i64_and(i64 a, i64 b)
@@ -182,7 +189,7 @@ TYPES_API TYPES_INLINE i64 i64_and(i64 a, i64 b)
   result.low = a.low & b.low;
   result.high = a.high & b.high;
 
-  return result;
+  return (result);
 }
 
 TYPES_API TYPES_INLINE i64 i64_or(i64 a, i64 b)
@@ -191,7 +198,7 @@ TYPES_API TYPES_INLINE i64 i64_or(i64 a, i64 b)
   result.low = a.low | b.low;
   result.high = a.high | b.high;
 
-  return result;
+  return (result);
 }
 
 TYPES_API TYPES_INLINE i64 i64_xor(i64 a, i64 b)
@@ -200,7 +207,7 @@ TYPES_API TYPES_INLINE i64 i64_xor(i64 a, i64 b)
   result.low = a.low ^ b.low;
   result.high = a.high ^ b.high;
 
-  return result;
+  return (result);
 }
 
 TYPES_API TYPES_INLINE i64 i64_not(i64 a)
@@ -209,7 +216,7 @@ TYPES_API TYPES_INLINE i64 i64_not(i64 a)
   result.low = ~a.low;
   result.high = ~a.high;
 
-  return result;
+  return (result);
 }
 
 TYPES_API TYPES_INLINE i64 i64_nand(i64 a, i64 b)
@@ -218,7 +225,7 @@ TYPES_API TYPES_INLINE i64 i64_nand(i64 a, i64 b)
   result.low = ~(a.low & b.low);
   result.high = ~(a.high & b.high);
 
-  return result;
+  return (result);
 }
 
 #endif /* TYPES_H */
