@@ -18,12 +18,16 @@ LICENSE
 /* Check if using C99 or later (inline is supported) */
 #if __STDC_VERSION__ >= 199901L
 #define TYPES_INLINE inline
+#define TYPES_API extern
 #elif defined(__GNUC__) || defined(__clang__)
 #define TYPES_INLINE __inline__
+#define TYPES_API static
 #elif defined(_MSC_VER)
 #define TYPES_INLINE __inline
+#define TYPES_API static
 #else
 #define TYPES_INLINE
+#define TYPES_API static
 #endif
 
 typedef unsigned char u8;
@@ -98,7 +102,7 @@ TYPES_STATIC_ASSERT(sizeof(i64) == 8, i64_size_must_be_8);
  * # 64-bit Integer Operations
  * #############################################################################
  */
-TYPES_INLINE u64 u64_add(u64 a, u64 b)
+TYPES_API TYPES_INLINE u64 u64_add(u64 a, u64 b)
 {
   u64 result;
   result.low = a.low + b.low;
@@ -106,7 +110,7 @@ TYPES_INLINE u64 u64_add(u64 a, u64 b)
   return result;
 }
 
-TYPES_INLINE u64 u64_sub(u64 a, u64 b)
+TYPES_API TYPES_INLINE u64 u64_sub(u64 a, u64 b)
 {
   u64 result;
   result.low = a.low - b.low;
@@ -114,7 +118,7 @@ TYPES_INLINE u64 u64_sub(u64 a, u64 b)
   return result;
 }
 
-TYPES_INLINE u64 u64_and(u64 a, u64 b)
+TYPES_API TYPES_INLINE u64 u64_and(u64 a, u64 b)
 {
   u64 result;
   result.low = a.low & b.low;
@@ -122,7 +126,7 @@ TYPES_INLINE u64 u64_and(u64 a, u64 b)
   return result;
 }
 
-TYPES_INLINE u64 u64_or(u64 a, u64 b)
+TYPES_API TYPES_INLINE u64 u64_or(u64 a, u64 b)
 {
   u64 result;
   result.low = a.low | b.low;
@@ -131,7 +135,7 @@ TYPES_INLINE u64 u64_or(u64 a, u64 b)
   return result;
 }
 
-TYPES_INLINE u64 u64_xor(u64 a, u64 b)
+TYPES_API TYPES_INLINE u64 u64_xor(u64 a, u64 b)
 {
   u64 result;
   result.low = a.low ^ b.low;
@@ -139,7 +143,7 @@ TYPES_INLINE u64 u64_xor(u64 a, u64 b)
   return result;
 }
 
-TYPES_INLINE u64 u64_not(u64 a)
+TYPES_API TYPES_INLINE u64 u64_not(u64 a)
 {
   u64 result;
   result.low = ~a.low;
@@ -147,7 +151,7 @@ TYPES_INLINE u64 u64_not(u64 a)
   return result;
 }
 
-TYPES_INLINE u64 u64_nand(u64 a, u64 b)
+TYPES_API TYPES_INLINE u64 u64_nand(u64 a, u64 b)
 {
   u64 result;
   result.low = ~(a.low & b.low);
@@ -156,7 +160,7 @@ TYPES_INLINE u64 u64_nand(u64 a, u64 b)
   return result;
 }
 
-TYPES_INLINE i64 i64_add(i64 a, i64 b)
+TYPES_API TYPES_INLINE i64 i64_add(i64 a, i64 b)
 {
   i64 result;
   result.low = a.low + b.low;
@@ -164,7 +168,7 @@ TYPES_INLINE i64 i64_add(i64 a, i64 b)
   return result;
 }
 
-TYPES_INLINE i64 i64_sub(i64 a, i64 b)
+TYPES_API TYPES_INLINE i64 i64_sub(i64 a, i64 b)
 {
   i64 result;
   result.low = a.low - b.low;
@@ -172,7 +176,7 @@ TYPES_INLINE i64 i64_sub(i64 a, i64 b)
   return result;
 }
 
-TYPES_INLINE i64 i64_and(i64 a, i64 b)
+TYPES_API TYPES_INLINE i64 i64_and(i64 a, i64 b)
 {
   i64 result;
   result.low = a.low & b.low;
@@ -181,7 +185,7 @@ TYPES_INLINE i64 i64_and(i64 a, i64 b)
   return result;
 }
 
-TYPES_INLINE i64 i64_or(i64 a, i64 b)
+TYPES_API TYPES_INLINE i64 i64_or(i64 a, i64 b)
 {
   i64 result;
   result.low = a.low | b.low;
@@ -190,7 +194,7 @@ TYPES_INLINE i64 i64_or(i64 a, i64 b)
   return result;
 }
 
-TYPES_INLINE i64 i64_xor(i64 a, i64 b)
+TYPES_API TYPES_INLINE i64 i64_xor(i64 a, i64 b)
 {
   i64 result;
   result.low = a.low ^ b.low;
@@ -199,7 +203,7 @@ TYPES_INLINE i64 i64_xor(i64 a, i64 b)
   return result;
 }
 
-TYPES_INLINE i64 i64_not(i64 a)
+TYPES_API TYPES_INLINE i64 i64_not(i64 a)
 {
   i64 result;
   result.low = ~a.low;
@@ -208,7 +212,7 @@ TYPES_INLINE i64 i64_not(i64 a)
   return result;
 }
 
-TYPES_INLINE i64 i64_nand(i64 a, i64 b)
+TYPES_API TYPES_INLINE i64 i64_nand(i64 a, i64 b)
 {
   i64 result;
   result.low = ~(a.low & b.low);
