@@ -1,5 +1,5 @@
 # types
-A C89 standard compliant, single header, nostdlib (no C Standard Library) type defines I use.
+A C89 standard compliant, single header, nostdlib (no C Standard Library) type defines I frequently use.
 
 For more information please look at the "types.h" file or take a look at the "examples" or "tests" folder.
 
