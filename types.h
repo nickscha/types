@@ -79,6 +79,11 @@ TYPES_STATIC_ASSERT(sizeof(f64) == 8, f64_size_must_be_8);
 TYPES_STATIC_ASSERT(sizeof(b8) == 1, b8_size_must_be_1);
 TYPES_STATIC_ASSERT(sizeof(b32) == 4, b32_size_must_be_4);
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+typedef unsigned long long u64;
+typedef long long i64;
+#else
+
 /* #############################################################################
  * # 64-bit Integer Emulation for C89
  * #############################################################################
@@ -625,6 +630,8 @@ TYPES_API TYPES_INLINE double double_from_i64(i64 x)
     return double_from_u64(abs);
   }
 }
+
+#endif /* C89 without long long */
 
 #endif /* TYPES_H */
 
