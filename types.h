@@ -79,6 +79,7 @@ TYPES_STATIC_ASSERT(sizeof(f64) == 8, f64_size_must_be_8);
 TYPES_STATIC_ASSERT(sizeof(b8) == 1, b8_size_must_be_1);
 TYPES_STATIC_ASSERT(sizeof(b32) == 4, b32_size_must_be_4);
 
+/* If the user of this api uses C standard >= C99/ANSI we use long long type directly */
 #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 typedef unsigned long long u64;
 typedef long long i64;
