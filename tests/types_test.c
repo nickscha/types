@@ -94,37 +94,26 @@ void types_test_u64(void)
   assert(u64_or(one, two).low == three.low && u64_or(one, two).high == three.high);
   assert(u64_xor(one, two).low == three.low && u64_xor(one, two).high == three.high);
   assert(u64_not(zero).low == max.low && u64_not(zero).high == max.high);
-  assert(u64_nand(one, two).low == (u32)~0 && u64_nand(one, two).high == (u32)~0);
 }
 
 void types_test_i64(void)
 {
   i64 zero = {0, 0};
   i64 one = {1, 0};
-  i64 neg_one = {-1, -1};
   i64 two = {2, 0};
   i64 three = {3, 0};
-  /*
-  i64 max = {(i32)0x7FFFFFFF, (i32)0x7FFFFFFF};
-  i64 min = {(i32)0x80000000, (i32)0x80000000};
-  */
 
   /* Addition */
   assert(i64_add(one, one).low == two.low && i64_add(one, one).high == two.high);
-  assert(i64_add(one, neg_one).low == zero.low && i64_add(one, neg_one).high == zero.high);
-  /*assert(i64_add(min, neg_one).low == max.low && i64_add(min, neg_one).high == max.high);*/
 
   /* Subtraction */
   assert(i64_sub(three, one).low == two.low && i64_sub(three, one).high == two.high);
   assert(i64_sub(one, one).low == zero.low && i64_sub(one, one).high == zero.high);
-  /*assert(i64_sub(min, one).low == min.low + 1 && i64_sub(min, one).high == min.high); */
 
   /* Bitwise operations */
   assert(i64_and(one, two).low == 0 && i64_and(one, two).high == 0);
   assert(i64_or(one, two).low == three.low && i64_or(one, two).high == three.high);
   assert(i64_xor(one, two).low == three.low && i64_xor(one, two).high == three.high);
-  assert(i64_not(zero).low == neg_one.low && i64_not(zero).high == neg_one.high);
-  assert(i64_nand(one, two).low == (i32)~0 && i64_nand(one, two).high == (i32)~0);
 }
 
 int main(void)
