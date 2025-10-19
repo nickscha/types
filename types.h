@@ -18,17 +18,15 @@ LICENSE
 /* Check if using C99 or later (inline is supported) */
 #if __STDC_VERSION__ >= 199901L
 #define TYPES_INLINE inline
-#define TYPES_API extern
 #elif defined(__GNUC__) || defined(__clang__)
 #define TYPES_INLINE __inline__
-#define TYPES_API static
 #elif defined(_MSC_VER)
 #define TYPES_INLINE __inline
-#define TYPES_API static
 #else
 #define TYPES_INLINE
-#define TYPES_API static
 #endif
+
+#define TYPES_API static
 
 typedef unsigned char u8;
 typedef unsigned short u16;
